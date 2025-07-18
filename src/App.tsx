@@ -1,52 +1,82 @@
 import { useCallback, useEffect, useState } from '@lynx-js/react'
 
 import './App.css'
-import arrow from './assets/arrow.png'
-import lynxLogo from './assets/lynx-logo.png'
-import reactLynxLogo from './assets/react-logo.png'
+
+
+const vn_words = [
+  {
+    "vn": "xin chào",
+    "en": "hello"
+  },
+  {
+    "vn": "cảm ơn",
+    "en": "thank you"
+  },
+  {
+    "vn": "tạm biệt",
+    "en": "goodbye"
+  },
+  {
+    "vn": "vâng",
+    "en": "yes"
+  },
+  {
+    "vn": "không",
+    "en": "no"
+  },
+  {
+    "vn": "ăn",
+    "en": "eat"
+  },
+  {
+    "vn": "uống",
+    "en": "drink"
+  },
+  {
+    "vn": "đẹp",
+    "en": "beautiful"
+  },
+  {
+    "vn": "yêu",
+    "en": "love"
+  },
+  {
+    "vn": "bạn",
+    "en": "friend / you"
+  }
+]
+
 
 export function App() {
-  const [alterLogo, setAlterLogo] = useState(false)
+
+  const randomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  const [show, setShow] = useState<boolean>(false)
+  const [word, setWord] = useState(() => randomItem(vn_words));
+
+
+  const translate = () => {
+    setShow(!show)
+  }
+
+  const nextWord = () => {
+    setShow(false)
+    setWord(randomItem(vn_words))
+  }
 
   useEffect(() => {
-    console.info('Hello, ReactLynx')
+    console.info('word')
   }, [])
 
-  const onTap = useCallback(() => {
-    'background only'
-    setAlterLogo(!alterLogo)
-  }, [alterLogo])
-
   return (
-    <view>
-      <view className='Background' />
-      <view className='App'>
-        <view className='Banner'>
-          <view className='Logo' bindtap={onTap}>
-            {alterLogo
-              ? <image src={reactLynxLogo} className='Logo--react' />
-              : <image src={lynxLogo} className='Logo--lynx' />}
-          </view>
-          <text className='Title'>React</text>
-          <text className='Subtitle'>on Lynx</text>
+      <view className='w-2/3 mt-8 mx-auto'>
+        <text className="text-xl mx-auto">{show ? word.vn : word.en}</text>
+        <view bindtap={translate} className='mx-auto text-white bg-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2'>
+          <text>Translate</text>
         </view>
-        <view className='Content'>
-          <image src={arrow} className='Arrow' />
-          <text className='Description'>Tap the logo and have fun!</text>
-          <text className='Hint'>
-            Edit<text
-              style={{
-                fontStyle: 'italic',
-                color: 'rgba(255, 255, 255, 0.85)',
-              }}
-            >
-              {' src/App.tsx '}
-            </text>
-            to see updates!
-          </text>
+        <view bindtap={nextWord} className='mx-auto text-white bg-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2'>
+          <text>Next</text>
         </view>
-        <view style={{ flex: 1 }}></view>
       </view>
-    </view>
   )
 }
