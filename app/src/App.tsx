@@ -35,14 +35,29 @@ export function App() {
     if (loading) return <text>Loading...</text>;
 
     return (
-      <view className='w-2/3 mt-8 mx-auto'>
-        <text className="text-xl mx-auto">{currentWord ? showVn ? currentWord.vn : currentWord.translation : ''}</text>
-        <view bindtap={translate} className='mx-auto text-white bg-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2'>
-          <text>Translate</text>
+        <view className='mt-20 mx-auto w-5/6'>
+            <view
+                bindtap={translate}
+                className='flex flex-col items-center justify-center mx-auto h-96 border border-gray-200 shadow-lg rounded-2xl'
+            >
+                <text className='text-6xl text-center my-auto'>
+                    {currentWord ? showVn ? currentWord.vn : currentWord.translation : ''}
+                </text>
+            </view>
+            <view className='grid grid-cols-2 gap-2 items-center justify-center mx-auto mt-4'>
+                <view
+                    bindtap={nextWord}
+                    className='flex flex-col items-center justify-center mx-auto w-full h-full text-white bg-green-400 font-medium rounded-lg px-5 py-2.5 me-2 mb-2'
+                >
+                    <text className='text-xl text-center'>Je sais</text>
+                </view>
+                <view
+                    bindtap={nextWord}
+                    className='flex flex-col items-center justify-center mx-auto w-full h-full text-white bg-red-400 font-medium rounded-lg px-5 py-2.5 me-2 mb-2'
+                >
+                    <text className='text-xl text-center'>Je ne sais pas</text>
+                </view>
+            </view>
         </view>
-        <view bindtap={nextWord} className='mx-auto text-white bg-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2'>
-          <text>Next</text>
-        </view>
-      </view>
     )
 }
