@@ -5,7 +5,7 @@ const apiUrl = config.apiUrl
 const apiToken = config.apiToken
 
 export interface Word {
-    id: number;
+    id?: number;
     vn: string;
     translation: string;
     added_at?: string;
