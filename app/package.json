@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@lynx-js/react": "^0.111.1",
-    "axios": "^1.10.0"
+    "axios": "^1.10.0",
+    "react-router": "^6.30.1"
   },
   "devDependencies": {
     "@lynx-js/qrcode-rsbuild-plugin": "^0.4.0",
