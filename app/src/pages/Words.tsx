@@ -2,6 +2,7 @@ import {useEffect, useState} from "@lynx-js/react";
 import {getAllWords, type Word} from "../services/wordService.js";
 import {Navigation} from "../components/Navigation.js";
 import {WordAdd} from "../components/WordAdd.js";
+import {Button} from "../components/Button.js";
 
 
 export function Words() {
@@ -39,20 +40,17 @@ export function Words() {
     if (loading) return <text>Loading...</text>;
 
     return (
-        <view className='mt-20 mx-auto w-5/6'>
+        <view className='mt-16 mx-auto w-5/6'>
             {
                 showAddWord 
                 ? <WordAdd onClose={() => handleAddWord()} />
-                :    
-                <view className='text-white bg-green-400 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2'>
-                    <text bindtap={handleAddWord}>Ajouter un nouveau mot</text>
-                </view>
+                : <Button onPress={handleAddWord} text={'Ajouter un mot'} colorClass={'bg-blue-400'} />
             }
             <list
                 scroll-orientation='vertical'
                 list-type='single'
                 span-count={1}
-                className='w-full h-screen grid gap-4 p-2 bg-yellow-200'
+                className='w-full h-screen grid gap-4 p-2'
             >
                 {
                     words.map((word, i) => {

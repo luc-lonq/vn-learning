@@ -1,5 +1,6 @@
 import {useState} from "@lynx-js/react";
 import {createWord} from "../services/wordService.js";
+import {Button} from "./Button.js";
 
 
 export function WordAdd({ onClose }: { onClose: () => void }) {
@@ -44,12 +45,7 @@ export function WordAdd({ onClose }: { onClose: () => void }) {
                 className='bg-gray-50 border border-gray-300 text-black text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
                 placeholder='Traduction'
             />
-            <view
-                bindtap={addWord}
-                className='flex flex-col items-center justify-center mx-auto w-full h-full text-white bg-blue-400 font-medium rounded-lg px-5 py-2.5 me-2 mb-2'
-            >
-                <text className='text-xl text-center'>Ajouter</text>
-            </view>
+            <Button onPress={addWord} text={'Ajouter'} colorClass={'bg-blue-400'} />
         </view>
     )
 }

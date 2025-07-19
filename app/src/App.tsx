@@ -2,6 +2,7 @@ import { useEffect, useState } from '@lynx-js/react'
 import {getAllWords, type Word} from "./services/wordService.js";
 import {Navigation} from "./components/Navigation.js";
 import './App.css'
+import {Button} from "./components/Button.js";
 
 export function App() {
 
@@ -35,7 +36,7 @@ export function App() {
     if (loading) return <text>Loading...</text>;
 
     return (
-        <view className='mt-20 mx-auto w-5/6'>
+        <view className='mt-16 mx-auto w-5/6'>
             <view
                 bindtap={translate}
                 className='flex flex-col items-center justify-center mx-auto h-96 border border-gray-200 shadow-lg rounded-2xl'
@@ -45,18 +46,8 @@ export function App() {
                 </text>
             </view>
             <view className='grid grid-cols-2 gap-2 items-center justify-center mx-auto mt-4'>
-                <view
-                    bindtap={nextWord}
-                    className='flex flex-col items-center justify-center mx-auto w-full h-full text-white bg-green-400 font-medium rounded-lg px-5 py-2.5 me-2 mb-2'
-                >
-                    <text className='text-xl text-center'>Je sais</text>
-                </view>
-                <view
-                    bindtap={nextWord}
-                    className='flex flex-col items-center justify-center mx-auto w-full h-full text-white bg-red-400 font-medium rounded-lg px-5 py-2.5 me-2 mb-2'
-                >
-                    <text className='text-xl text-center'>Je ne sais pas</text>
-                </view>
+                <Button onPress={nextWord} text={'Je sais'} colorClass={'bg-green-400'}/>
+                <Button onPress={nextWord} text={'Je ne sais pas'} colorClass={'bg-red-400'}/>
             </view>
             <Navigation />
         </view>
