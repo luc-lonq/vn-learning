@@ -1,76 +1,42 @@
 import { useEffect, useState } from '@lynx-js/react'
+import {getAllWords, type Word} from "./services/wordService.js";
 
 import './App.css'
 
-
-const vn_words = [
-  {
-    "vn": "xin chào",
-    "en": "hello"
-  },
-  {
-    "vn": "cảm ơn",
-    "en": "thank you"
-  },
-  {
-    "vn": "tạm biệt",
-    "en": "goodbye"
-  },
-  {
-    "vn": "vâng",
-    "en": "yes"
-  },
-  {
-    "vn": "không",
-    "en": "no"
-  },
-  {
-    "vn": "ăn",
-    "en": "eat"
-  },
-  {
-    "vn": "uống",
-    "en": "drink"
-  },
-  {
-    "vn": "đẹp",
-    "en": "beautiful"
-  },
-  {
-    "vn": "yêu",
-    "en": "love"
-  },
-  {
-    "vn": "bạn",
-    "en": "friend / you"
-  }
-]
-
-
 export function App() {
 
-  const randomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+    const randomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
 
-  const [show, setShow] = useState<boolean>(false)
-  const [word, setWord] = useState(() => randomItem(vn_words));
+    const [words, setWords] = useState<Word[]>([]);
+    const [currentWord, setCurrentWord] = useState<Word | null>(null);
+    const [showVn, setShowVn] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true);
 
+    useEffect(() => {
+        getAllWords().then((words) => {
+            setWords(words);
+            setCurrentWord(randomItem(words));
+            setLoading(false);
+        }).catch((err) => {
+            console.error(err);
+            setLoading(false);
+        });
+    }, []);
 
-  const translate = () => {
-    setShow(!show)
-  }
+    const translate = () => {
+        setShowVn(!showVn)
+    }
 
-  const nextWord = () => {
-    setShow(false)
-    setWord(randomItem(vn_words))
-  }
+    const nextWord = () => {
+        setShowVn(false)
+        setCurrentWord(randomItem(words))
+    }
 
-  useEffect(() => {
-    console.info('word')
-  }, [])
+    if (loading) return <text>Loading...</text>;
 
-  return (
+    return (
       <view className='w-2/3 mt-8 mx-auto'>
-        <text className="text-xl mx-auto">{show ? word.vn : word.en}</text>
+        <text className="text-xl mx-auto">{currentWord ? showVn ? currentWord.vn : currentWord.translation : ''}</text>
         <view bindtap={translate} className='mx-auto text-white bg-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2'>
           <text>Translate</text>
         </view>
@@ -78,5 +44,5 @@ export function App() {
           <text>Next</text>
         </view>
       </view>
-  )
+    )
 }
