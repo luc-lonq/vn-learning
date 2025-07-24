@@ -1,8 +1,8 @@
 import { useEffect, useState } from '@lynx-js/react'
-import {getAllWords, type Word} from "./services/wordService.js";
-import {Navigation} from "./components/Navigation.js";
-import './App.css'
-import {Button} from "./components/Button.js";
+import {addFail, addSuccess, getAllWords, type Word} from "../services/wordService.js";
+import {Navigation} from "../components/Navigation.js";
+import '../App.css'
+import {Button} from "../components/Button.js";
 
 export function App() {
 
@@ -33,7 +33,23 @@ export function App() {
         setCurrentWord(randomItem(words))
     }
 
-    if (loading) return <text>Loading...</text>;
+    const success = () => {
+        if (currentWord) {
+            addSuccess(currentWord).then(r => {
+                nextWord()
+            })
+        }
+    }
+
+    const failure = () => {
+        if (currentWord) {
+            addFail(currentWord).then(r => {
+                nextWord()
+            })
+        }
+    }
+
+    if (loading) return <view/>;
 
     return (
         <view className='mt-16 mx-auto w-5/6'>
@@ -46,8 +62,8 @@ export function App() {
                 </text>
             </view>
             <view className='grid grid-cols-2 gap-2 items-center justify-center mx-auto mt-4'>
-                <Button onPress={nextWord} text={'Je sais'} colorClass={'bg-green-400'}/>
-                <Button onPress={nextWord} text={'Je ne sais pas'} colorClass={'bg-red-400'}/>
+                <Button onPress={success} text={'Je sais'} colorClass={'bg-green-400'}/>
+                <Button onPress={failure} text={'Je ne sais pas'} colorClass={'bg-red-400'}/>
             </view>
             <Navigation />
         </view>

@@ -5,10 +5,12 @@ const apiUrl = config.apiUrl
 const apiToken = config.apiToken
 
 export interface Word {
-    id?: number;
+    id: number;
     vn: string;
     translation: string;
-    added_at?: string;
+    success: number;
+    fail: number;
+    added_at: string;
 }
 
 const api = axios.create({
@@ -29,13 +31,20 @@ export async function getAllWords(): Promise<Word[]> {
     return response.data;
 }
 
-export async function getWordById(id: number): Promise<Word> {
-    const response = await api.get<Word>(`/${id}`);
+export async function createWord(word: Omit<Word, "id" | "success" | "fail" | "added_at">): Promise<Word> {
+    const response = await api.post<Word>("/", word);
     return response.data;
 }
 
-export async function createWord(word: Omit<Word, "id">): Promise<Word> {
-    const response = await api.post<Word>("/", word);
+export async function addSuccess(word: Word): Promise<Word> {
+    word.success += 1;
+    const response = await api.put<Word>(`/${word.id}`, word);
+    return response.data;
+}
+
+export async function addFail(word: Word): Promise<Word> {
+    word.fail += 1;
+    const response = await api.put<Word>(`/${word.id}`, word);
     return response.data;
 }
 

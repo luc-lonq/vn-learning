@@ -11,7 +11,7 @@ export function WordAdd({ onClose }: { onClose: () => void }) {
         if (vn && translation) {
             const newWord = {
                 vn: vn,
-                translation: translation
+                translation: translation,
             };
             try {
                 await createWord(newWord).then(() => {

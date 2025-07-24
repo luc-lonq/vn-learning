@@ -25,6 +25,8 @@ router.post("/", async (req, res) => {
         const newWord = wordRepository.create({
             translation,
             vn,
+            success: 0,
+            fail: 0,
             added_at: new Date().toISOString()
         });
 
@@ -40,7 +42,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { translation, vn } = req.body;
+        const { translation, vn, success, fail } = req.body;
 
         const word = await wordRepository.findOneBy({ id: Number(id) });
         if (!word) {
@@ -49,6 +51,8 @@ router.put("/:id", async (req, res) => {
 
         word.translation = translation;
         word.vn = vn;
+        word.success = success;
+        word.fail = fail;
 
         await wordRepository.save(word);
 

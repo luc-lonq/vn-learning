@@ -1,7 +1,7 @@
 import { root } from '@lynx-js/react'
 import { MemoryRouter, Routes, Route } from 'react-router';
 
-import { App } from './App.js'
+import { App } from './pages/App.js'
 import {Words} from "./pages/Words.js";
 
 root.render(

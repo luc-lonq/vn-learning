@@ -12,5 +12,11 @@ export class Word {
     translation!: string;
 
     @Column()
+    success!: number;
+
+    @Column()
+    fail!: number;
+
+    @Column()
     added_at!: string;
 }

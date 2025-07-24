@@ -37,7 +37,7 @@ export function Words() {
         }
     }
 
-    if (loading) return <text>Loading...</text>;
+    if (loading) return <view/>;
 
     return (
         <view className='mt-16 mx-auto w-5/6'>
