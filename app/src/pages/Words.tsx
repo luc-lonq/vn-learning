@@ -59,9 +59,34 @@ export function Words() {
                                 item-key={`list-item-${i}`}
                                 key={`list-item-${i}`}
                             >
-                                <view>
-                                    <text className='text-2xl'>{word.vn}</text>
-                                    <text className='text text-gray-600'>{word.translation}</text>
+                                <view className='grid grid-cols-2'>
+                                    <view>
+                                        <text className='text-2xl'>{word.vn}</text>
+                                        <text className='text text-gray-600'>{word.translation}</text>
+                                    </view>
+                                    <view className='my-auto w-full'>
+                                        <view class='flex justify-between mb-1'>
+                                            <text className='text-base font-medium text-blue-700'>{word.success}/{word.fail}</text>
+                                            <text className='text-sm font-medium text-blue-700'>
+                                                {
+                                                    word.success == 0 && word.fail == 0
+                                                        ? 0
+                                                        : Math.round(word.success / (word.success + word.fail) * 100)
+                                                }%
+                                            </text>
+                                        </view>
+                                        <view className='w-full bg-gray-200 rounded-full h-2.5'>
+
+                                            <view className='bg-blue-600 h-2.5 rounded-full' style={
+                                                `width: ${
+                                                    word.success == 0 && word.fail == 0
+                                                    ? 0
+                                                    : word.success / (word.success + word.fail) * 100
+                                                }%`
+                                            }
+                                            ></view>
+                                        </view>
+                                    </view>
                                 </view>
                             </list-item>
                         );
